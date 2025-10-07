@@ -1,0 +1,156 @@
+/* Base */
+body {
+    background: #2c3e50;
+    color: #fff;
+}
+
+/* Contenedor principal */
+.panel {
+    background: #34495e;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Tabla */
+.table.rounded {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.table thead tr {
+    background: #e74c3c;
+}
+
+.table thead th {
+    color: #0f0909ff;
+    font-weight: bold;
+    border: none;
+    text-align: center;
+}
+
+.table tbody td {
+    text-align: center;
+    color: #212529;
+    border: none;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+/* Estado (solo para el select) */
+.estado-select.bg-success {
+    background-color: #b6f0c2 !important;
+    color: #212529 !important;
+}
+
+.estado-select.bg-danger {
+    background-color: #f7b6b6 !important;
+    color: #212529 !important;
+}
+
+.estado-select.bg-warning {
+    background-color: #fff3cd !important;
+    color: #212529 !important;
+}
+
+.estado-select option {
+    background: #fff;
+    color: #212529;
+}
+
+.estado-select option:checked,
+.estado-select option:hover,
+.estado-select option:focus {
+    background: #f0f0f0 !important;
+    color: #212529 !important;
+}
+
+/* Modal (unificado y sin duplicados) */
+.modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.modal-content {
+    background-color: #34495e !important;
+    color: #fff !important;
+    border-radius: 16px !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+}
+
+.modal-header,
+.modal-header.bg-danger {
+    /* rojo exacto de Bootstrap (.bg-danger) */
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    border-bottom: none !important;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+.modal-body,
+.modal-footer {
+    background-color: #34495e !important;
+    color: #ecf0f1 !important;
+}
+
+#modalActionMsg {
+    color: #ecf0f1 !important;
+}
+
+/* Tipografía y accesibilidad del modal */
+.modal-title {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px;
+}
+
+.modal-body {
+    font-size: 1.1rem !important;
+    line-height: 1.5 !important;
+    padding: 1.6rem 1.8rem !important;
+}
+
+.modal-footer .btn {
+    font-size: 1rem !important;
+    padding: 0.5rem 1.1rem !important;
+    border-radius: 8px !important;
+}
+
+.modal-header .btn-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.btn-close-white {
+    filter: invert(1) !important;
+}
+
+/* Variables (consistencia) */
+:root {
+    --modal-title-size: 1.35rem;
+    --modal-body-size: 1.1rem;
+}
+
+.modal-content {
+    overflow: hidden !important;
+    background-clip: padding-box !important;
+}
+
+.modal-footer {
+    background-color: #34495e !important;
+    border-top: none !important;
+    box-shadow: none !important;
+}
+
+.modal-body {
+    border-bottom: none !important;
+}
+.modal-body hr {
+    display: none !important;
+}

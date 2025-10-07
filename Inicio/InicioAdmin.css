@@ -1,0 +1,208 @@
+:root {
+    --brand: #e74c3c;
+    --bg: #2c3e50;
+    --panel: #34495e;
+    --muted: #6c757d;
+}
+
+/* Base */
+body {
+    background: var(--bg);
+    color: #fff;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    background: #fff;
+    padding: .7rem 1rem;
+}
+
+.navbar-brand {
+    color: var(--brand);
+    font-weight: 700;
+}
+
+.btn-account {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: .45rem .8rem;
+}
+
+.btn-account:hover {
+    background: #c0392b;
+}
+
+/* Panel principal */
+.panel {
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.action-link {
+    max-width: 1300px;
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Accordion */
+.accordion-button {
+    background: #fff;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.accordion-button:not(.collapsed) {
+    background: var(--brand);
+    color: #fff;
+}
+
+/* Utilidades */
+.btn-square {
+    width: 200px;
+    height: 60px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-none {
+    display: none !important;
+}
+
+/* ==== Panel de cuenta (centrado bajo el botón) ==== */
+.account-wrapper {
+    position: relative;
+}
+
+.account-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    /* debajo del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    min-width: 340px;
+    max-width: 420px;
+    background: #fff;
+    /* caja completa blanca */
+    color: #2c3e50;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    pointer-events: auto;
+}
+
+/* Flecha centrada apuntando al botón */
+.account-panel::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border-radius: 2px;
+}
+
+/* Cabecera dentro del panel */
+.account-card {
+    background: transparent;
+    padding: 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.account-panel .avatar {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.account-info h6 {
+    margin: 0 0 6px;
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 1.05rem;
+}
+
+.account-info small {
+    display: block;
+    color: #6c757d;
+}
+
+/* Separadores y contenido */
+.account-panel hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 12px 0;
+}
+
+.account-meta {
+    margin-top: 10px;
+    color: #2c3e50;
+}
+
+.account-meta li {
+    margin-bottom: 4px;
+}
+
+.account-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.account-panel .btn {
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width:576px) {
+    .account-panel {
+        min-width: calc(100vw - 32px);
+    }
+}
+
+.navbar {
+    position: relative;
+}
+
+.account-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Panel bajo el botón (ya centrado) */
+.account-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    min-width: 340px;
+    max-width: 420px;
+    background: #fff;
+    color: #2c3e50;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    pointer-events: auto;
+}
