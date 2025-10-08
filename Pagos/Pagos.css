@@ -59,3 +59,84 @@ body {
 .btn-outline-primary {
     border-radius: 8px;
 }
+
+.ver-comprobante {
+    color: var(--brand);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+}
+
+.file-upload {
+    position: relative;
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+#imagenComprobante {
+    max-height: 80vh;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Estilos para modales - copiados exactamente de Productos.css */
+.modal-content {
+    border-radius: 16px;
+    background: #34495e;
+    color: #fff;
+    border: none;
+}
+
+.modal-header {
+    background: #e74c3c;
+    color: #fff;
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+}
+
+.modal-body {
+    background: #34495e;
+    color: #ecf0f1;
+    font-size: 1.1rem;
+    border-radius: 0 0 16px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.modal-footer {
+    background: #34495e;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    justify-content: center;
+}
+
+.modal-body p {
+    margin-bottom: 8px;
+}
+
+.modal-footer .btn {
+    min-width: 100px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
