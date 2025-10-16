@@ -1,11 +1,13 @@
 <?php
+// Verificar sesión
+require_once '../config/verificar_sesion.php';
 
-$tipo = $_GET['tipo'] ?? 'admin';
+$tipo = $_SESSION['usuario_rol'] ?? 'usuario';
 $isAdmin = ($tipo === 'admin');
 
 $pagos = [
-    ['id' => 1, 'pedido_id' => 2, 'monto' => 15000, 'fecha' => '2025-09-29', 'estado' => 'Sin Comprobante', 'comprobante' => ''],
-    ['id' => 2, 'pedido_id' => 1, 'monto' => 12000, 'fecha' => '2025-09-28', 'estado' => 'Completado', 'comprobante' => 'FotoUsuario.jpg'],
+    ['id' => 1, 'pedido_id' => 2, 'monto' => 15000, 'fecha' => '2025-09-29', 'estado' => 'Sin Comprobante', 'comprobante' => '', 'usuario' => 'Carlos Mendez'],
+    ['id' => 2, 'pedido_id' => 1, 'monto' => 12000, 'fecha' => '2025-09-28', 'estado' => 'Completado', 'comprobante' => 'FotoUsuario.jpg', 'usuario' => 'Ana Rodríguez'],
 ];
 ?>
 <table class="table table-striped rounded bg-white text-dark mt-3">
@@ -14,6 +16,9 @@ $pagos = [
       <th>ID Pedido</th>
       <th>Monto</th>
       <th>Fecha</th>
+      <?php if ($isAdmin): ?>
+      <th>Usuario</th>
+      <?php endif; ?>
       <th>Estado</th>
       <th>Comprobante</th>
       <th>Acciones</th>
@@ -25,6 +30,9 @@ $pagos = [
         <td><?= $pago['pedido_id'] ?></td>
         <td>$<?= number_format($pago['monto'], 0, ',', '.') ?></td>
         <td><?= $pago['fecha'] ?></td>
+        <?php if ($isAdmin): ?>
+        <td><?= htmlspecialchars($pago['usuario']) ?></td>
+        <?php endif; ?>
         <td class="estado-pago"><?= htmlspecialchars($pago['estado']) ?></td>
         <td class="comprobante-cell">
           <?php if (!empty($pago['comprobante'])): ?>

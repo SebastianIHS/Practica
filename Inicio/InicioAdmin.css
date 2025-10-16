@@ -78,6 +78,8 @@ body {
     display: none !important;
 }
 
+/* Todo el contenido relacionado con el footer ha sido eliminado */
+
 /* ==== Panel de cuenta (centrado bajo el botón) ==== */
 .account-wrapper {
     position: relative;
@@ -132,6 +134,19 @@ body {
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid rgba(0, 0, 0, 0.06);
+    background-color: var(--brand);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 28px;
+    text-transform: uppercase;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    text-align: center;
 }
 
 .account-info h6 {
@@ -190,7 +205,6 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/* Panel bajo el botón (ya centrado) */
 .account-panel {
     position: absolute;
     top: calc(100% + 10px);

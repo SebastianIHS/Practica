@@ -40,17 +40,122 @@
 <body>
     <div class="login-panel">
         <h2>Iniciar Sesión</h2>
-        <form>
+        <!-- Alerta de errores -->
+        <div id="errores-container" class="alert alert-danger d-none mb-3"></div>
+        
+        <form action="procesar_login.php" method="POST">
             <div class="mb-3">
-                <label for="usuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="usuario" placeholder="Ingresa tu usuario">
+                <label for="usuario" class="form-label">Correo o RUT</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingresa tu correo o RUT" required>
             </div>
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasena" placeholder="Ingresa tu contraseña">
+                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
             </div>
             <button type="submit" class="btn btn-custom mt-3">Entrar</button>
         </form>
+        <div class="text-center mt-3">
+            <p>¿No tienes una cuenta? <a href="Registro.html" class="text-danger fw-bold">Regístrate</a></p>
+        </div>
     </div>
+    
+    <script>
+        // Función para validar RUT chileno
+        function validarRUT(rut) {
+            // Eliminar puntos y guiones
+            rut = rut.replace(/\./g, '').replace(/-/g, '');
+            
+            // Verificar longitud mínima
+            if (rut.length < 2) return false;
+            
+            // Separar cuerpo y dígito verificador
+            const dv = rut.charAt(rut.length - 1);
+            const cuerpo = rut.substring(0, rut.length - 1);
+            
+            // Validar que sean sólo números
+            if (!cuerpo.match(/^[0-9]+$/)) return false;
+            
+            // Calcular dígito verificador
+            let suma = 0;
+            let multiplo = 2;
+            
+            // Recorrer cada dígito de derecha a izquierda
+            for (let i = cuerpo.length - 1; i >= 0; i--) {
+                suma += parseInt(cuerpo.charAt(i)) * multiplo;
+                multiplo = multiplo === 7 ? 2 : multiplo + 1;
+            }
+            
+            const dvEsperado = 11 - (suma % 11);
+            let dvCalculado;
+            
+            if (dvEsperado === 11) {
+                dvCalculado = '0';
+            } else if (dvEsperado === 10) {
+                dvCalculado = 'K';
+            } else {
+                dvCalculado = dvEsperado.toString();
+            }
+            
+            // Comparar dígito verificador
+            return dvCalculado.toUpperCase() === dv.toUpperCase();
+        }
+        
+        // Función para formatear RUT mientras el usuario escribe
+        function formatearRUTInput(input) {
+            // Detectar si parece ser un RUT chileno (no un correo electrónico)
+            if (!input.value.includes('@') && !input.value.includes('.com')) {
+                let rut = input.value.replace(/\./g, '').replace(/-/g, '');
+                
+                // Si tiene longitud mayor o igual a 7, probablemente es un RUT
+                if (rut.length >= 7 && rut.length <= 9) {
+                    if (rut.length > 1) {
+                        const dv = rut.charAt(rut.length - 1);
+                        const cuerpo = rut.substring(0, rut.length - 1);
+                        
+                        // Formatear con puntos y guión
+                        if (cuerpo.length > 0) {
+                            // Convertir a número y formatear con puntos
+                            const cuerpoNum = parseInt(cuerpo);
+                            if (!isNaN(cuerpoNum)) {
+                                const cuerpoFormateado = new Intl.NumberFormat('es-CL').format(cuerpoNum);
+                                input.value = cuerpoFormateado + '-' + dv;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Verificar si hay errores en la URL
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            
+            if (error) {
+                const errorContainer = document.getElementById('errores-container');
+                errorContainer.classList.remove('d-none');
+                errorContainer.innerHTML = decodeURIComponent(error);
+            }
+            
+            // Para registro exitoso
+            const registro = urlParams.get('registro');
+            if (registro === 'exitoso') {
+                alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+            }
+            
+            // Configurar la detección y formateo de RUT
+            const usuarioInput = document.getElementById('usuario');
+            const form = document.querySelector('form');
+            
+            usuarioInput.addEventListener('blur', function() {
+                formatearRUTInput(this);
+            });
+            
+            // Formatear cuando el usuario envía el formulario
+            form.addEventListener('submit', function(event) {
+                formatearRUTInput(usuarioInput);
+            });
+        };
+    </script>
 </body>
 </html>

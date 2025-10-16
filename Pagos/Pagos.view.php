@@ -1,11 +1,14 @@
     <?php
-    $tipo = $_GET['tipo'] ?? 'admin';
+    // Verificar sesión
+    require_once '../config/verificar_sesion.php';
+    
+    $tipo = $_SESSION['usuario_rol'] ?? 'usuario';
     $isAdmin = ($tipo === 'admin');
     ?>
 
     <!DOCTYPE html>
     <html lang="es">
-
+    
     <head>
         <meta charset="utf-8">
         <title>Gestión de Pagos</title>

@@ -10,6 +10,7 @@
     <title>Inicio Admin — Bienestar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="InicioAdmin.css">
 </head>
 
@@ -23,7 +24,20 @@
                 </button>
                 <div id="accountPanel" class="account-panel d-none" role="dialog" aria-hidden="true">
                     <div class="account-card">
-                        <img src="<?= htmlspecialchars($user['avatar'] ?? 'https://via.placeholder.com/150') ?>" alt="avatar" class="avatar">
+                        <a href="perfil.php" title="Haz clic para cambiar tu avatar" style="position: relative; display: inline-block; cursor: pointer;">
+                            <img src="<?= htmlspecialchars($user['avatar'] ?? 'https://via.placeholder.com/150') ?>" alt="avatar" class="avatar">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); border-radius: 50%; opacity: 0; transition: all 0.3s; display: flex; justify-content: center; align-items: center;">
+                                <i class="bi bi-camera-fill text-white" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <style>
+                                a:hover .avatar + div {
+                                    opacity: 1;
+                                }
+                                a:hover .avatar {
+                                    filter: blur(1px);
+                                }
+                            </style>
+                        </a>
                         <div class="account-info">
                             <h6 class="mb-0"><?= htmlspecialchars($user['nombre'] ?? 'Usuario') ?></h6>
                             <small class="d-block text-muted"><?= htmlspecialchars($user['email'] ?? '') ?></small>
@@ -42,36 +56,30 @@
 
                     <div class="account-actions d-flex gap-2">
                         <a href="perfil.php" class="btn btn-sm btn-primary flex-grow-1">Ver perfil</a>
-                        <button id="btnCerrar" class="btn btn-sm btn-outline-danger">Salir</button>
+                        <a href="cerrar_sesion.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="d-flex justify-content-start align-items-center mt-3 ms-4">
-        <a href="../Inicio/PaginaInicioPro.php?tipo=<?= urlencode($tipo) ?>" class="btn btn-danger px-4 py-2 fw-bold" style="border-radius: 10px;">
-            <i class="bi bi-arrow-left-circle me-2"></i> Volver
-        </a>
-    </div>
 
     <main class="container-fluid">
         <div class="main-content">
             <div class="panel productos-panel mx-auto" style="max-width:1100px;">
                 <h2 class="text-start">Panel de prueba (<?= $isAdmin ? 'Admin' : 'Usuario' ?>)</h2>
                 <p>Work In Progress</p>
-
                 <div class="d-flex justify-content-center my-4">    
-                    <a href="../Productos/Productos.view.php?tipo=<?= urlencode($tipo) ?>" class="btn btn-lg btn-primary action-link">
+                    <a href="../Productos/Productos.view.php" class="btn btn-lg btn-primary action-link">
                         <i class="bi bi-box-seam me-2"></i> Ver productos
                     </a>
                 </div>
                 <div class="d-flex justify-content-center my-4">
-                    <a href="../Pedidos/Pedidos.view.php?tipo=<?= urlencode($tipo) ?>" class="btn btn-lg btn-primary action-link">
+                    <a href="../Pedidos/Pedidos.view.php" class="btn btn-lg btn-primary action-link">
                         <i class="bi bi-clipboard-data me-2"></i> Ver pedidos
                     </a>
                 </div>
                 <div class="d-flex justify-content-center my-4">
-                    <a href="../Pagos/Pagos.view.php?tipo=<?= urlencode($tipo) ?>" class="btn btn-lg btn-primary action-link">
+                    <a href="../Pagos/Pagos.view.php" class="btn btn-lg btn-primary action-link">
                         <i class="bi bi-cash-coin me-2"></i> Ver pagos
                     </a>
                 </div>

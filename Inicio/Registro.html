@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c3e50, #1a242f);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Resetear estilos de bootstrap para el input-group */
+        .input-group {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            width: 100%;
+        }
+        .registro-panel {
+            background: linear-gradient(to bottom, #34495e, #2c3e50);
+            border-radius: 16px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            width: 100%;
+            max-width: 650px;
+        }
+        .registro-panel h2 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
+        .btn-custom {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: #fff;
+            width: 100%;
+            font-weight: 600;
+            padding: 12px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-custom:hover {
+            background: linear-gradient(to right, #c0392b, #e74c3c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            color: #fff;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            padding: 8px 15px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            height: 42px;
+        }
+        .form-control:focus {
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.25);
+            border-color: rgba(231, 76, 60, 0.5);
+        }
+        .input-group .form-control {
+            border-radius: 0 8px 8px 0;
+            border-left: none;
+            height: 100%;
+        }
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        .login-link a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+            color: #ff6b6b;
+        }
+        .input-group-text {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 46px;
+            height: 100%;
+            padding: 0;
+        }
+        .input-group-text i {
+            font-size: 1.1rem;
+        }
+        .input-group {
+            height: 42px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-check {
+            margin-top: 5px;
+        }
+        .form-check-input:checked {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Función para validar RUT chileno
+        function validarRUT(rut) {
+            // Eliminar puntos y guiones
+            const rutOriginal = rut;
+            rut = rut.replace(/\./g, '').replace(/-/g, '');
+            
+            // Verificar longitud mínima
+            if (rut.length < 2) return false;
+            
+            // Separar cuerpo y dígito verificador
+            const dv = rut.charAt(rut.length - 1);
+            const cuerpo = rut.substring(0, rut.length - 1);
+            
+            // Validar que sean sólo números
+            if (!cuerpo.match(/^[0-9]+$/)) return false;
+            
+            // Calcular dígito verificador
+            let suma = 0;
+            let multiplo = 2;
+            
+            // Recorrer cada dígito de derecha a izquierda
+            for (let i = cuerpo.length - 1; i >= 0; i--) {
+                suma += parseInt(cuerpo.charAt(i)) * multiplo;
+                multiplo = multiplo === 7 ? 2 : multiplo + 1;
+            }
+            
+            const dvEsperado = 11 - (suma % 11);
+            let dvCalculado;
+            
+            if (dvEsperado === 11) {
+                dvCalculado = '0';
+            } else if (dvEsperado === 10) {
+                dvCalculado = 'K';
+            } else {
+                dvCalculado = dvEsperado.toString();
+            }
+            
+            // Para debug: mostrar los cálculos
+            console.log('RUT original:', rutOriginal);
+            console.log('RUT sin formato:', rut);
+            console.log('Cuerpo:', cuerpo);
+            console.log('Dígito verificador ingresado:', dv);
+            console.log('Suma:', suma);
+            console.log('Dígito verificador calculado:', dvCalculado);
+            console.log('¿Es válido?:', dvCalculado.toUpperCase() === dv.toUpperCase());
+            
+            // Comparar dígito verificador
+            return dvCalculado.toUpperCase() === dv.toUpperCase();
+        }
+        
+        // Función para formatear RUT mientras el usuario escribe
+        function formatearRUTInput(input) {
+            let rut = input.value.replace(/\./g, '').replace(/-/g, '');
+            
+            if (rut.length > 1) {
+                const dv = rut.charAt(rut.length - 1);
+                const cuerpo = rut.substring(0, rut.length - 1);
+                
+                // Formatear con puntos y guión
+                if (cuerpo.length > 0) {
+                    // Convertir a número y formatear con puntos
+                    const cuerpoNum = parseInt(cuerpo);
+                    if (!isNaN(cuerpoNum)) {
+                        const cuerpoFormateado = new Intl.NumberFormat('es-CL').format(cuerpoNum);
+                        input.value = cuerpoFormateado + '-' + dv;
+                    }
+                }
+            }
+        }
+
+        // Verificar si hay errores en la URL (redireccionamiento desde procesar_registro.php)
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            
+            if (error) {
+                const errorContainer = document.getElementById('errores-container');
+                errorContainer.classList.remove('d-none');
+                errorContainer.innerHTML = decodeURIComponent(error);
+            }
+            
+            // Para registro exitoso
+            const registroExitoso = urlParams.get('registro');
+            if (registroExitoso === 'exitoso') {
+                alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+            }
+            
+            // Configurar la validación del RUT
+            const rutInput = document.getElementById('rut');
+            const form = document.querySelector('form');
+            
+            rutInput.addEventListener('blur', function() {
+                formatearRUTInput(this);
+                
+                if (this.value && !validarRUT(this.value)) {
+                    this.setCustomValidity('RUT inválido');
+                    this.classList.add('is-invalid');
+                } else {
+                    this.setCustomValidity('');
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                }
+            });
+            
+            // Validar antes de enviar el formulario
+            form.addEventListener('submit', function(event) {
+                if (rutInput.value && !validarRUT(rutInput.value)) {
+                    event.preventDefault();
+                    alert('Por favor ingrese un RUT válido');
+                    rutInput.focus();
+                }
+            });
+        };
+    </script>
+    <div class="registro-panel">
+        <h2>Registro de Usuario</h2>
+        
+        <!-- Mostrar errores si existen -->
+        <div id="errores-container" class="alert alert-danger d-none mb-3"></div>
+        
+        <form action="procesar_registro.php" method="POST">
+            <div class="row g-2">
+                <div class="col-md-4 form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Tu apellido" required>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="rut" class="form-label">RUT</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                        <input type="text" class="form-control" id="rut" name="rut" placeholder="12.345.678-9" required>
+                    </div>
+                    <div class="invalid-feedback" id="rut-feedback">
+                        Por favor ingresa un RUT válido (Ej: 12.345.678-9)
+                    </div>
+                    <small class="form-text text-light">Se aceptan formatos: 12345678-9, 12.345.678-9</small>
+                </div>
+            </div>
+            
+            <div class="row g-2 mt-1">
+                <div class="col-md-6 form-group">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="telefono" class="form-label">Teléfono (opcional)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+56 9 1234 5678">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-2 mt-1">
+                <div class="col-md-6 form-group">
+                    <label for="contrasena" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="confirmarContrasena" class="form-label">Confirmar contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                        <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena" placeholder="Confirma tu contraseña" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-12 form-check">
+                    <input type="checkbox" class="form-check-input" id="terminos" name="terminos" required>
+                    <label class="form-check-label" for="terminos">Acepto los términos y condiciones</label>
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-custom">Registrarme</button>
+                </div>
+            </div>
+            
+            <div class="login-link">
+                ¿Ya tienes una cuenta? <a href="Login.html">Iniciar sesión</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

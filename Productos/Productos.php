@@ -1,13 +1,23 @@
 <?php
+// Verificar sesión
+require_once '../config/verificar_sesion.php';
 
-$tipo = $_GET['tipo'] ?? 'admin';
+// Incluir archivo de conexión a la base de datos
+require_once '../config/db_connect.php';
+
+$tipo = $_SESSION['usuario_rol'] ?? 'usuario';
 $isAdmin = ($tipo === 'admin');
 
-// Datos demo (reemplaza por tu DB)
-$productos = [
-  ['id' => 1, 'nombre' => '5k',  'precio' => 1200, 'stock' => 30,  'tipo' => 'Valon de gas'],
-  ['id' => 2, 'nombre' => '15K', 'precio' => 300,  'stock' => 100, 'tipo' => 'Valon de gas'],
-];
+// Obtener productos de la base de datos
+$sql = "SELECT * FROM productos ORDER BY id";
+$result = mysqli_query($conn, $sql);
+
+$productos = [];
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $productos[] = $row;
+    }
+}
 ?>
 
 <table class="table table-bordered table-striped bg-white text-dark rounded">
@@ -46,7 +56,7 @@ $productos = [
         </td>
         <td class="d-flex justify-content-center gap-2">
           <button class="btn btn-success btn-sm btn-comprar"
-            onclick="agregarAlCarrito('<?= htmlspecialchars($producto['nombre']) ?>', <?= $producto['precio'] ?>)">
+            onclick="agregarAlCarrito(<?= $producto['id'] ?>, '<?= htmlspecialchars($producto['nombre']) ?>', <?= $producto['precio'] ?>, <?= $producto['stock'] ?>)">
             <span class="bi bi-cart"></span>
           </button>
           <?php if ($isAdmin): ?>
@@ -67,7 +77,7 @@ $productos = [
     <?php if ($isAdmin): ?>
       <!-- Fila crear -->
       <tr>
-        <td><input type="text" class="form-control form-control-sm" placeholder="ID"></td>
+        <td><span class="text-muted"><i>Auto</i></span></td>
         <td><input type="text" class="form-control form-control-sm" placeholder="Nombre"></td>
         <td><input type="number" class="form-control form-control-sm" placeholder="Precio"></td>
         <td><input type="text" class="form-control form-control-sm" placeholder="Tipo"></td>
