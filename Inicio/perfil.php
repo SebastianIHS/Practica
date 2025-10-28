@@ -50,8 +50,10 @@ if (mysqli_num_rows($result) == 1) {
     $rol = $usuario['rol'];
     
     // Si no hay avatar o es el predeterminado, generar uno con iniciales
-    $avatar = $usuario['avatar'];
-    if (empty($avatar) || $avatar === 'default-avatar.jpg') {
+    $tiene_avatar = !empty($usuario['avatar']);
+    if ($tiene_avatar) {
+        $avatar = "mostrar_avatar.php?id=" . $usuario_id . "&t=" . time();
+    } else {
         $avatar = generarAvatarIniciales($nombre, $apellido);
     }
 } else {
@@ -124,7 +126,7 @@ if (isset($_GET['mensaje']) && isset($_GET['tipo'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #2c3e50, #1a242f);
+            background: linear-gradient(180deg, #1a2530, #4a6783);
             color: #fff;
             min-height: 100vh;
             padding: 20px;

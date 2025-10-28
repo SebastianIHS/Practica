@@ -1,0 +1,239 @@
+2025-10-22 14:53:58 - Iniciando eliminación de pago
+Datos: {"action":"eliminarPago","pago_id":"16"}
+------------------------------
+2025-10-22 14:53:58 - Ejecutando consulta
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 16"}
+------------------------------
+2025-10-22 14:53:58 - Información del pago
+Datos: {"pedido_id":"30"}
+------------------------------
+2025-10-22 14:53:58 - Ejecutando eliminación
+Datos: {"sql":"DELETE FROM pagos WHERE id = 16"}
+------------------------------
+2025-10-22 14:53:58 - Pago eliminado correctamente
+------------------------------
+2025-10-22 14:53:58 - Actualizando estado
+Datos: {"sql":"UPDATE pedidos SET estado = 'pendiente' WHERE id = 30"}
+------------------------------
+2025-10-22 14:53:58 - Resultado de actualización estado
+Datos: {"success":"true","error":""}
+------------------------------
+2025-10-22 14:53:58 - Ejecutando commit
+------------------------------
+2025-10-22 14:54:00 - Iniciando eliminación de pago
+Datos: {"action":"eliminarPago","pago_id":"15"}
+------------------------------
+2025-10-22 14:54:00 - Ejecutando consulta
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 15"}
+------------------------------
+2025-10-22 14:54:00 - Información del pago
+Datos: {"pedido_id":"29"}
+------------------------------
+2025-10-22 14:54:00 - Ejecutando eliminación
+Datos: {"sql":"DELETE FROM pagos WHERE id = 15"}
+------------------------------
+2025-10-22 14:54:00 - Pago eliminado correctamente
+------------------------------
+2025-10-22 14:54:00 - Actualizando estado
+Datos: {"sql":"UPDATE pedidos SET estado = 'pendiente' WHERE id = 29"}
+------------------------------
+2025-10-22 14:54:00 - Resultado de actualización estado
+Datos: {"success":"true","error":""}
+------------------------------
+2025-10-22 14:54:00 - Ejecutando commit
+------------------------------
+2025-10-22 14:54:02 - Iniciando eliminación de pago
+Datos: {"action":"eliminarPago","pago_id":"12"}
+------------------------------
+2025-10-22 14:54:02 - Ejecutando consulta
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 12"}
+------------------------------
+2025-10-22 14:54:02 - Información del pago
+Datos: {"pedido_id":"26"}
+------------------------------
+2025-10-22 14:54:02 - Ejecutando eliminación
+Datos: {"sql":"DELETE FROM pagos WHERE id = 12"}
+------------------------------
+2025-10-22 14:54:02 - Pago eliminado correctamente
+------------------------------
+2025-10-22 14:54:02 - Actualizando estado
+Datos: {"sql":"UPDATE pedidos SET estado = 'pendiente' WHERE id = 26"}
+------------------------------
+2025-10-22 14:54:02 - Resultado de actualización estado
+Datos: {"success":"true","error":""}
+------------------------------
+2025-10-22 14:54:02 - Ejecutando commit
+------------------------------
+2025-10-22 14:54:04 - Iniciando eliminación de pago
+Datos: {"action":"eliminarPago","pago_id":"11"}
+------------------------------
+2025-10-22 14:54:04 - Ejecutando consulta
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 11"}
+------------------------------
+2025-10-22 14:54:04 - Información del pago
+Datos: {"pedido_id":"25"}
+------------------------------
+2025-10-22 14:54:04 - Ejecutando eliminación
+Datos: {"sql":"DELETE FROM pagos WHERE id = 11"}
+------------------------------
+2025-10-22 14:54:04 - Pago eliminado correctamente
+------------------------------
+2025-10-22 14:54:04 - Actualizando estado
+Datos: {"sql":"UPDATE pedidos SET estado = 'pendiente' WHERE id = 25"}
+------------------------------
+2025-10-22 14:54:04 - Resultado de actualización estado
+Datos: {"success":"true","error":""}
+------------------------------
+2025-10-22 14:54:04 - Ejecutando commit
+------------------------------
+2025-10-22 14:54:06 - Iniciando eliminación de pago
+Datos: {"action":"eliminarPago","pago_id":"10"}
+------------------------------
+2025-10-22 14:54:06 - Ejecutando consulta
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 10"}
+------------------------------
+2025-10-22 14:54:06 - Información del pago
+Datos: {"pedido_id":"17"}
+------------------------------
+2025-10-22 14:54:06 - Ejecutando eliminación
+Datos: {"sql":"DELETE FROM pagos WHERE id = 10"}
+------------------------------
+2025-10-22 14:54:06 - Pago eliminado correctamente
+------------------------------
+2025-10-22 14:54:06 - Actualizando estado
+Datos: {"sql":"UPDATE pedidos SET estado = 'pendiente' WHERE id = 17"}
+------------------------------
+2025-10-22 14:54:06 - Resultado de actualización estado
+Datos: {"success":"true","error":""}
+------------------------------
+2025-10-22 14:54:06 - Ejecutando commit
+------------------------------
+2025-10-22 15:06:00 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"9"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":138,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 9"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":157,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"16"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":174,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Ejecutando eliminación
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"DELETE FROM pagos WHERE id = 9"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":182,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Pago eliminado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":186,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Actualizando estado
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"UPDATE pedidos SET estado = 'pendiente' WHERE id = 16"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":200,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Resultado de actualización estado
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"success":"true","error":""}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":202,"function":"logError"}]
+------------------------------
+2025-10-22 15:06:00 - Ejecutando commit
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":205,"function":"logError"}]
+------------------------------
+2025-10-22 16:31:25 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"19"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":138,"function":"logError"}]
+------------------------------
+2025-10-22 16:31:25 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 19"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":157,"function":"logError"}]
+------------------------------
+2025-10-22 16:31:25 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"35"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":174,"function":"logError"}]
+------------------------------
+[22-Oct-2025 16:31:25 Europe/Berlin] PHP Warning:  Undefined variable $error in C:\Users\moons\OneDrive\Escritorio\Practica\Practica\Pagos\procesar_pagos.php on line 207
+2025-10-22 16:33:44 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"20"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":138,"function":"logError"}]
+------------------------------
+2025-10-22 16:33:44 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 20"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":157,"function":"logError"}]
+------------------------------
+2025-10-22 16:33:44 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"36"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":174,"function":"logError"}]
+------------------------------
+2025-10-22 16:34:47 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"22"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":138,"function":"logError"}]
+------------------------------
+2025-10-22 16:34:47 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 22"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":157,"function":"logError"}]
+------------------------------
+2025-10-22 16:34:47 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"38"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":174,"function":"logError"}]
+------------------------------
+2025-10-22 16:41:44 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"21"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":138,"function":"logError"}]
+------------------------------
+2025-10-22 16:41:44 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 21"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":157,"function":"logError"}]
+------------------------------
+2025-10-22 16:41:44 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"37"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":174,"function":"logError"}]
+------------------------------
+2025-10-22 16:41:44 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"111025","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":238,"function":"logError"}]
+------------------------------
+2025-10-23 13:33:57 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"24"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":138,"function":"logError"}]
+------------------------------
+2025-10-23 13:33:57 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 24"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":157,"function":"logError"}]
+------------------------------
+2025-10-23 13:33:57 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"40"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":174,"function":"logError"}]
+------------------------------
+2025-10-23 13:33:57 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"51025","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":238,"function":"logError"}]
+------------------------------
+2025-10-27 15:01:47 - Stock restaurado (automatico)
+Sesión: {"usuario_id":"2","usuario_rol":"usuario","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"111025","cantidad":1}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":398,"function":"logError"}]
+------------------------------

@@ -1,0 +1,22 @@
+/* Estilos para la animación de fadeOut cuando se elimina una fila - ultra rápido */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; height: 0; padding: 0; margin: 0; border: 0; }
+}
+
+tr.fade-out {
+    animation: fadeOut 0.1s ease forwards;
+    pointer-events: none;
+    display: none;
+}
+
+/* Asegurar que la fila desaparezca completamente e inmediatamente */
+tr.fade-out td {
+    padding: 0 !important;
+    height: 0 !important;
+    border: none !important;
+}
+
+tr.fade-out * {
+    opacity: 0;
+}

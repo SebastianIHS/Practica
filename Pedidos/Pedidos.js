@@ -24,8 +24,30 @@ function showToast(message, isError = false) {
   }, 3000);
 }
 
-function showModal(msg, onConfirm) {
-  document.getElementById('modalActionMsg').innerHTML = msg;
+function showModal(msg, onConfirm, isSuccess = false) {
+  const modalActionMsg = document.getElementById('modalActionMsg');
+  const modalHeader = document.querySelector('.modal-header');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalExtraMsg = document.querySelector('.mt-2');
+  
+  // Cambiar el estilo según si es éxito o confirmación
+  if (isSuccess) {
+    // Modo éxito
+    modalHeader.classList.remove('bg-danger');
+    modalHeader.classList.add('bg-success');
+    modalTitle.innerText = '¡Operación exitosa!';
+    if (modalExtraMsg) modalExtraMsg.style.display = 'none'; // Ocultar mensaje redundante si existe
+    document.getElementById('modalConfirmBtn').innerText = 'Aceptar';
+  } else {
+    // Modo confirmación
+    modalHeader.classList.remove('bg-success');
+    modalHeader.classList.add('bg-danger');
+    modalTitle.innerText = 'Confirmar acción';
+    if (modalExtraMsg) modalExtraMsg.style.display = 'block';
+    document.getElementById('modalConfirmBtn').innerText = 'Confirmar';
+  }
+  
+  modalActionMsg.innerHTML = msg;
   pendingAction = onConfirm;
   const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
   modal.show();
@@ -36,45 +58,9 @@ function showModal(msg, onConfirm) {
 }
 
 // Funciones para administrar pedidos
-function cambiarEstadoPedido(select) {
-  const pedido_id = select.getAttribute('data-pedido-id');
-  const estado = select.value;
-  
-  // Preparar datos para enviar al servidor
-  const data = {
-    action: 'actualizarEstado',
-    pedido_id: pedido_id,
-    estado: estado
-  };
-  
-  // Enviar al servidor
-  fetch('procesar_pedidos.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      showToast('Estado actualizado correctamente');
-    } else {
-      showToast('Error al actualizar estado: ' + data.message, true);
-      // Revertir el cambio en el select
-      select.value = select.getAttribute('data-estado-original');
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    showToast('Error al actualizar el estado. Intenta nuevamente.', true);
-    // Revertir el cambio en el select
-    select.value = select.getAttribute('data-estado-original');
-  });
-}
 
 function confirmarEliminarPedido(pedido_id) {
-  showModal('¿Estás seguro que deseas eliminar este pedido? Esta acción no se puede deshacer.', () => {
+  showModal('¿Estás seguro que deseas eliminar este pedido?<br> Esta acción no se puede deshacer.', () => {
     eliminarPedido(pedido_id);
   });
 }
@@ -98,9 +84,11 @@ function eliminarPedido(pedido_id) {
   .then(data => {
     if (data.success) {
       showToast('Pedido eliminado correctamente');
-      // Eliminar la fila de la tabla
-      const row = document.querySelector(`[data-pedido-id="${pedido_id}"]`).closest('tr');
-      row.remove();
+      // Eliminar la fila de la tabla usando el atributo data-pedido-id
+      const row = document.querySelector(`tr[data-pedido-id="${pedido_id}"]`);
+      if (row) {
+        row.remove();
+      }
     } else {
       showToast('Error al eliminar pedido: ' + data.message, true);
     }
@@ -111,9 +99,7 @@ function eliminarPedido(pedido_id) {
   });
 }
 
-// Guardar el estado original de cada select para poder revertir cambios si hay error
+// Inicializar cualquier componente necesario cuando la página cargue
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.estado-select').forEach(select => {
-    select.setAttribute('data-estado-original', select.value);
-  });
+  // Ya no se necesita inicializar los selects de estado
 });

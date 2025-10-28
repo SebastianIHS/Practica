@@ -12,6 +12,8 @@ $isAdmin = ($tipo === 'admin');
 <head>
   <meta charset="UTF-8">
   <title>Productos</title>
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/favicon.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -31,7 +33,7 @@ $isAdmin = ($tipo === 'admin');
   <div class="container mt-4">
     <div class="d-flex flex-wrap gap-4 align-items-start">
       <div class="panel flex-grow-1" style="min-width:350px;">
-        <h2 class="mb-4">Tabla de Productos</h2>
+        <h2 class="mb-4">Vales de Gas Disponibles</h2>
         <?php include 'Productos.php'; ?>
       </div>
 
@@ -55,7 +57,6 @@ $isAdmin = ($tipo === 'admin');
         </div>
         <div class="modal-body text-center">
           <div id="modalActionMsg" class="mb-2"></div>
-          <div class="mt-2" style="color: #333;">¿Estás seguro de hacer esto?</div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

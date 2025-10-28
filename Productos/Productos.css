@@ -1,6 +1,64 @@
 body {
-    background: #2c3e50;
+    background: linear-gradient(180deg, #1a2530, #4a6783);
     color: #fff;
+    font-family: system-ui, "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Estilos para eliminar las líneas blancas debajo de las acciones */
+.table td.actions-cell {
+    padding: 0.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+/* Alinear centrado específicamente texto y precios */
+.prod-nombre, .prod-precio, .prod-stock {
+    text-align: center;
+    display: block;
+}
+
+/* Estilizar los botones del carrito para usuarios normales */
+.btn-comprar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.btn-comprar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Asegurar que los botones no generen espacio adicional */
+.table .btn {
+    margin: 0;
+    vertical-align: middle;
+}
+
+/* Centrar los campos de entrada y selección */
+.table input, .table select {
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Centrar los encabezados de la tabla */
+.table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Estilos para usuarios normales y administradores */
+.table-bordered {
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .panel {
@@ -38,6 +96,22 @@ body {
     background: #f8f9fa;
     color: #2c3e50;
     border: none;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Estilizar el panel del carrito */
+.carrito-panel h5 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.carrito-panel #carritoTotal {
+    font-weight: bold;
+    text-align: center;
 }
 
 th:first-child,

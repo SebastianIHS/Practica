@@ -33,89 +33,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($action) {
         case 'create':
             // Sanitizar los datos
+            $id = sanitizar($conn, $data['id']);
             $nombre = sanitizar($conn, $data['nombre']);
             $precio = (int)$data['precio'];
             $stock = (int)$data['stock'];
-            $tipo = sanitizar($conn, $data['tipo']);
             
             // Validaciones básicas
-            if (empty($nombre) || $precio <= 0 || $stock < 0 || empty($tipo)) {
+            if (empty($id) || strlen($id) != 6 || empty($nombre) || $precio <= 0 || $stock < 0) {
                 $response = ['success' => false, 'message' => 'Datos inválidos'];
                 break;
             }
             
+            // Verificar si el ID ya existe
+            $check_id = mysqli_query($conn, "SELECT id FROM productos WHERE id = '$id'");
+            if (mysqli_num_rows($check_id) > 0) {
+                $response = ['success' => false, 'message' => 'Este ID de vale ya existe. Por favor, use otro.'];
+                break;
+            }
+            
             // Insertar en la base de datos
-            $sql = "INSERT INTO productos (nombre, precio, stock, tipo) VALUES ('$nombre', $precio, $stock, '$tipo')";
+            $sql = "INSERT INTO productos (id, nombre, precio, stock) VALUES ('$id', '$nombre', $precio, $stock)";
             
             if (mysqli_query($conn, $sql)) {
-                $id = mysqli_insert_id($conn);
                 $response = [
                     'success' => true, 
-                    'message' => 'Producto creado exitosamente',
+                    'message' => 'Vale de gas creado exitosamente',
                     'product' => [
                         'id' => $id,
                         'nombre' => $nombre,
                         'precio' => $precio,
-                        'stock' => $stock,
-                        'tipo' => $tipo
+                        'stock' => $stock
                     ]
                 ];
             } else {
-                $response = ['success' => false, 'message' => 'Error al crear producto: ' . mysqli_error($conn)];
+                $response = ['success' => false, 'message' => 'Error al crear el vale de gas: ' . mysqli_error($conn)];
             }
             break;
             
         case 'update':
             // Sanitizar los datos
-            $id = (int)$data['id'];
+            $id = sanitizar($conn, $data['id']);
             $nombre = sanitizar($conn, $data['nombre']);
             $precio = (int)$data['precio'];
             $stock = (int)$data['stock'];
-            $tipo = sanitizar($conn, $data['tipo']);
             
             // Validaciones básicas
-            if ($id <= 0 || empty($nombre) || $precio <= 0 || $stock < 0 || empty($tipo)) {
+            if (empty($id) || empty($nombre) || $precio <= 0 || $stock < 0) {
                 $response = ['success' => false, 'message' => 'Datos inválidos'];
                 break;
             }
             
             // Actualizar en la base de datos
-            $sql = "UPDATE productos SET nombre = '$nombre', precio = $precio, stock = $stock, tipo = '$tipo' WHERE id = $id";
+            $sql = "UPDATE productos SET nombre = '$nombre', precio = $precio, stock = $stock WHERE id = '$id'";
             
             if (mysqli_query($conn, $sql)) {
                 $response = [
                     'success' => true, 
-                    'message' => 'Producto actualizado exitosamente',
+                    'message' => 'Vale de gas actualizado exitosamente',
                     'product' => [
                         'id' => $id,
                         'nombre' => $nombre,
                         'precio' => $precio,
-                        'stock' => $stock,
-                        'tipo' => $tipo
+                        'stock' => $stock
                     ]
                 ];
             } else {
-                $response = ['success' => false, 'message' => 'Error al actualizar producto: ' . mysqli_error($conn)];
+                $response = ['success' => false, 'message' => 'Error al actualizar el vale de gas: ' . mysqli_error($conn)];
             }
             break;
             
         case 'delete':
-            // Sanitizar los datos
-            $id = (int)$data['id'];
+        case 'delete':
+            $id = sanitizar($conn, $data['id']);
             
-            // Validaciones básicas
-            if ($id <= 0) {
-                $response = ['success' => false, 'message' => 'ID de producto inválido'];
+            // Validación básica
+            if (empty($id)) {
+                $response = ['success' => false, 'message' => 'ID de vale de gas inválido'];
                 break;
             }
             
             // Eliminar de la base de datos
-            $sql = "DELETE FROM productos WHERE id = $id";
+            $sql = "DELETE FROM productos WHERE id = '$id'";
             
             if (mysqli_query($conn, $sql)) {
-                $response = ['success' => true, 'message' => 'Producto eliminado exitosamente'];
+                $response = ['success' => true, 'message' => 'Vale de gas eliminado exitosamente'];
             } else {
-                $response = ['success' => false, 'message' => 'Error al eliminar producto: ' . mysqli_error($conn)];
+                $response = ['success' => false, 'message' => 'Error al eliminar vale de gas: ' . mysqli_error($conn)];
             }
             break;
     }

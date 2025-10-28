@@ -11,10 +11,13 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Gestión de Pagos</title>
+        <title>Subir comprobante de pago</title>
+        <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="../assets/favicon.png" type="image/png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="Pagos.css">
+        <link rel="stylesheet" href="animations.css">
     </head>
 
     <body>
@@ -26,13 +29,14 @@
 
         <main class="container my-4">
             <div class="panel pagos-panel mx-auto" style="max-width:900px;">
-                <h2 class="mb-4">Registro de Pagos</h2>
+                <h2 class="mb-4">Subir comprobante de pago</h2>
                 <?php include __DIR__ . '/Pagos.php'; ?>
             </div>
         </main>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="Pagos.js"></script>
+        <script src="auto_eliminar.js"></script>
     </body>
 
     </html>

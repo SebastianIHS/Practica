@@ -1,0 +1,33 @@
+/* Panel de usuario */
+.account-wrapper {
+    position: relative;
+    z-index: 999;
+}
+
+#accountPanel {
+    position: absolute !important;
+    top: 48px !important;
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 9999 !important;
+    width: 340px !important;
+}
+
+/* Contenido principal siempre por debajo del panel pero visible */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Botones deben permanecer visibles */
+.main-content .panel {
+    position: relative;
+    z-index: 1;
+}
+
+/* Flecha correctamente posicionada */
+#accountPanel::before {
+    right: 20px !important;
+    left: auto !important;
+}

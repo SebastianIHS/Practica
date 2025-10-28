@@ -5,10 +5,11 @@
 }
 
 body {
-    background: var(--bg);
+    background: linear-gradient(180deg, #1a2530, #4a6783);
     color: #fff;
     font-family: system-ui, "Segoe UI", Arial, sans-serif;
     margin: 0;
+    min-height: 100vh;
 }
 
 .navbar {
@@ -60,7 +61,7 @@ body {
     border-radius: 8px;
 }
 
-.ver-comprobante {
+.ver-comprobante:not(.btn) {
     color: var(--brand);
     text-decoration: underline;
     cursor: pointer;
@@ -139,4 +140,16 @@ body {
 
 .btn-close-white {
     filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Estilo más delgado para botones de ver comprobante */
+.ver-comprobante-btn {
+    padding: 0.18rem 0.4rem !important;
+    font-size: 0.78rem !important;
+    border-radius: 6px !important;
+    line-height: 1 !important;
+}
+.ver-comprobante-btn i {
+    margin-right: 6px;
+    font-size: 0.95em;
 }

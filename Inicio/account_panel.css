@@ -1,0 +1,29 @@
+/* CSS para asegurar que el panel de cuenta se muestre correctamente por encima de todo */
+
+/* Aumentar el z-index del panel y ajustar posición */
+.account-panel {
+    position: fixed !important; /* Posición fija en la pantalla */
+    top: 60px !important; /* Posición desde arriba */
+    right: 20px !important; /* Posición desde la derecha */
+    left: auto !important; /* Ignorar posición izquierda */
+    transform: none !important; /* Sin transformación */
+    z-index: 999999 !important; /* Valor extremadamente alto para estar por encima de todo */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3) !important; /* Sombra más notoria */
+}
+
+/* Ajustar la flecha del panel para la nueva posición */
+.account-panel::before {
+    right: 30px !important; /* Posición de la flecha */
+    left: auto !important;
+}
+
+/* Bajar el z-index de los botones para que estén por debajo del panel */
+.action-link {
+    z-index: 100 !important;
+    position: relative;
+}
+
+/* Para un efecto más suave al mostrar/ocultar el panel */
+.account-panel {
+    transition: opacity 0.2s ease-in-out;
+}

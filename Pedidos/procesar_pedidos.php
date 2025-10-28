@@ -69,26 +69,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // Iniciar transacción
             mysqli_autocommit($conn, FALSE);
+            $error = false;
             
-            // Primero eliminamos los detalles
-            $sql_detalles = "DELETE FROM detalle_pedido WHERE pedido_id = $pedido_id";
-            $result_detalles = mysqli_query($conn, $sql_detalles);
+            // Primero eliminar el pago asociado (si existe)
+            $sql_pago = "DELETE FROM pagos WHERE pedido_id = $pedido_id";
+            $result_pago = mysqli_query($conn, $sql_pago);
             
-            if ($result_detalles) {
-                // Luego eliminamos el pedido
+            if (!$result_pago) {
+                $error = true;
+                $response = ['success' => false, 'message' => 'Error al eliminar pago asociado: ' . mysqli_error($conn)];
+            }
+            
+            // Luego eliminamos los detalles del pedido
+            if (!$error) {
+                $sql_detalles = "DELETE FROM detalle_pedido WHERE pedido_id = $pedido_id";
+                $result_detalles = mysqli_query($conn, $sql_detalles);
+                
+                if (!$result_detalles) {
+                    $error = true;
+                    $response = ['success' => false, 'message' => 'Error al eliminar detalles del pedido: ' . mysqli_error($conn)];
+                }
+            }
+            
+            // Finalmente eliminamos el pedido
+            if (!$error) {
                 $sql = "DELETE FROM pedidos WHERE id = $pedido_id";
                 $result = mysqli_query($conn, $sql);
                 
-                if ($result) {
-                    mysqli_commit($conn);
-                    $response = ['success' => true, 'message' => 'Pedido eliminado exitosamente'];
-                } else {
-                    mysqli_rollback($conn);
+                if (!$result) {
+                    $error = true;
                     $response = ['success' => false, 'message' => 'Error al eliminar pedido: ' . mysqli_error($conn)];
                 }
-            } else {
+            }
+            
+            // Confirmar o revertir transacción
+            if ($error) {
                 mysqli_rollback($conn);
-                $response = ['success' => false, 'message' => 'Error al eliminar detalles del pedido: ' . mysqli_error($conn)];
+            } else {
+                mysqli_commit($conn);
+                $response = ['success' => true, 'message' => 'Pedido eliminado exitosamente'];
             }
             
             // Restaurar autocommit

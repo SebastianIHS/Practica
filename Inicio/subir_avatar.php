@@ -60,19 +60,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["avatar"]) && $_FILES[
     $new_filename = $usuario_id . '_' . time() . '_' . $filename;
     $upload_path = $upload_dir . $new_filename;
     
-    // Mover el archivo subido
-    if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $upload_path)) {
-        // Actualizar la base de datos
-        $avatar_path = "Image/avatares/" . $new_filename;
-        $sql = "UPDATE usuario SET avatar = '../$avatar_path' WHERE id_usuario = '$usuario_id'";
-        
-        if (mysqli_query($conn, $sql)) {
-            header("Location: perfil.php?mensaje=" . urlencode("¡Avatar actualizado correctamente!") . "&tipo=success");
-        } else {
-            header("Location: perfil.php?mensaje=" . urlencode("Error al actualizar la base de datos: " . mysqli_error($conn)) . "&tipo=danger");
-        }
+    // Leer el archivo en una variable
+    $imageData = file_get_contents($_FILES["avatar"]["tmp_name"]);
+    
+    // Escapar los datos binarios para la consulta SQL
+    $imageData = mysqli_real_escape_string($conn, $imageData);
+    
+    // Actualizar la base de datos con la imagen como BLOB
+    $sql = "UPDATE usuario SET 
+            avatar = '$imageData', 
+            avatar_tipo = '$filetype' 
+            WHERE id_usuario = '$usuario_id'";
+    
+    if (mysqli_query($conn, $sql)) {
+        header("Location: perfil.php?mensaje=" . urlencode("¡Avatar actualizado correctamente!") . "&tipo=success");
     } else {
-        header("Location: perfil.php?mensaje=" . urlencode("Error al subir el archivo. Intenta nuevamente.") . "&tipo=danger");
+        header("Location: perfil.php?mensaje=" . urlencode("Error al actualizar la base de datos: " . mysqli_error($conn)) . "&tipo=danger");
     }
 } else {
     header("Location: perfil.php?mensaje=" . urlencode("No se seleccionó ningún archivo o hubo un error en la carga") . "&tipo=warning");
