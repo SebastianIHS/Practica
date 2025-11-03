@@ -1,15 +1,15 @@
 <?php
-// Verificar sesión
+ 
 require_once '../config/verificar_sesion.php';
 
-// Incluir archivo de conexión a la base de datos
+ 
 require_once '../config/db_connect.php';
 
 $tipo = $_SESSION['usuario_rol'] ?? 'usuario';
 $isAdmin = ($tipo === 'admin');
 $usuario_id = $_SESSION['usuario_id'] ?? 0;
 
-// Verificar si la tabla pagos existe
+ 
 $pagos_exists = false;
 $check_pagos = mysqli_query($conn, "SHOW TABLES LIKE 'pagos'");
 if ($check_pagos && mysqli_num_rows($check_pagos) > 0) {
@@ -19,7 +19,7 @@ if ($check_pagos && mysqli_num_rows($check_pagos) > 0) {
 $pagos = [];
 
 if ($pagos_exists) {
-    // LIMPIEZA AUTOMÁTICA: Eliminar pagos/pedidos expirados antes de mostrar la lista
+    
     $ahora = time();
     $sql_expirados = "SELECT p.id as pago_id, p.pedido_id 
                       FROM pagos p
@@ -34,11 +34,11 @@ if ($pagos_exists) {
             $pago_id = (int)$expirado['pago_id'];
             $pedido_id = (int)$expirado['pedido_id'];
             
-            // Iniciar transacción para eliminar
+            
             mysqli_autocommit($conn, FALSE);
             $error = false;
             
-            // Obtener detalles para restaurar stock
+            
             $sql_detalles = "SELECT producto_id, cantidad FROM detalle_pedido WHERE pedido_id = $pedido_id";
             $res_det = mysqli_query($conn, $sql_detalles);
             $productos = [];
@@ -48,21 +48,27 @@ if ($pagos_exists) {
                 }
             }
             
-            // Eliminar pago
+            
             if (!mysqli_query($conn, "DELETE FROM pagos WHERE id = $pago_id")) {
                 $error = true;
             }
             
-            // Restaurar stock
+            
             if (!$error && !empty($productos)) {
                 foreach ($productos as $prod) {
                     $pid = mysqli_real_escape_string($conn, $prod['id']);
                     $cant = (int)$prod['cantidad'];
+                    
+                    // Normalizar ID si tiene 5 dígitos (agregar 0 al inicio)
+                    if (strlen($pid) == 5 && is_numeric($pid)) {
+                        $pid = str_pad($pid, 6, '0', STR_PAD_LEFT);
+                    }
+                    
                     mysqli_query($conn, "UPDATE productos SET stock = stock + $cant WHERE id = '$pid'");
                 }
             }
             
-            // Eliminar detalles y pedido
+            
             if (!$error) {
                 if (!mysqli_query($conn, "DELETE FROM detalle_pedido WHERE pedido_id = $pedido_id")) {
                     $error = true;
@@ -72,7 +78,7 @@ if ($pagos_exists) {
                 }
             }
             
-            // Confirmar o revertir
+            
             if ($error) {
                 mysqli_rollback($conn);
             } else {

@@ -1,8 +1,6 @@
 <?php
-// Incluir archivo de conexión a la base de datos
 require_once 'db_connect.php';
 
-// Verificar la estructura de la tabla productos
 $sql = "DESCRIBE productos";
 $result = mysqli_query($conn, $sql);
 

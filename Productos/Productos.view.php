@@ -1,9 +1,14 @@
 <?php
-// Verificar sesión
+ 
 require_once '../config/verificar_sesion.php';
 
 $tipo = $_SESSION['usuario_rol'] ?? 'usuario';
 $isAdmin = ($tipo === 'admin');
+
+// Obtener el mes actual para mostrar
+$meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+$mes_nombre = $meses[(int)date('n') - 1];
+$anio_actual = date('Y');
 ?>
 <!DOCTYPE html>
 
@@ -19,11 +24,12 @@ $isAdmin = ($tipo === 'admin');
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="Productos.css">
   <link rel="stylesheet" href="toast.css">
+  <link rel="stylesheet" href="carrito-float.css">
   <script>
     window.APP_ROLE = "<?= $isAdmin ? 'admin' : 'usuario' ?>";
   </script>
 </head>
-
+  
 <body>
   <div class="d-flex justify-content-start align-items-center mt-3 ms-4">
     <a href="../Inicio/InicioAdmin.php" class="btn btn-danger px-4 py-2 fw-bold" style="border-radius: 10px;">
@@ -33,7 +39,10 @@ $isAdmin = ($tipo === 'admin');
   <div class="container mt-4">
     <div class="d-flex flex-wrap gap-4 align-items-start">
       <div class="panel flex-grow-1" style="min-width:350px;">
-        <h2 class="mb-4">Vales de Gas Disponibles</h2>
+        <h2 class="mb-4">
+          Vales de Gas Disponibles 
+          <span style="color: #6c757d; font-size: 0.85em;">(<?= $mes_nombre . ' ' . $anio_actual ?>)</span>
+        </h2>
         <?php include 'Productos.php'; ?>
       </div>
 

@@ -1,22 +1,16 @@
 <?php
-// Archivo para crear la tabla de pagos
 
-// Incluir archivo de conexión a la base de datos
 require_once 'db_connect.php';
 
-// Verificar si la tabla pagos ya existe
 $check_pagos = mysqli_query($conn, "SHOW TABLES LIKE 'pagos'");
 $pagos_exists = mysqli_num_rows($check_pagos) > 0;
 
 $success = false;
 $message = '';
 
-// Si la tabla no existe, crearla
 if (!$pagos_exists) {
-    // Leer el contenido del archivo SQL
     $sql_file = file_get_contents('setup_pagos_table.sql');
     
-    // Ejecutar la consulta SQL
     if (mysqli_query($conn, $sql_file)) {
         $success = true;
         $message = "¡La tabla 'pagos' ha sido creada exitosamente!";
@@ -28,12 +22,10 @@ if (!$pagos_exists) {
     $message = "La tabla 'pagos' ya existe en la base de datos.";
 }
 
-// Verificar si el directorio de comprobantes existe
 $uploadDir = '../Image/comprobantes/';
 $dir_exists = file_exists($uploadDir);
 $dir_message = '';
 
-// Intentar crear el directorio si no existe
 if (!$dir_exists) {
     if (mkdir($uploadDir, 0777, true)) {
         $dir_exists = true;
@@ -45,7 +37,6 @@ if (!$dir_exists) {
     $dir_message = "El directorio para comprobantes ya existe.";
 }
 
-// Mostrar resultado
 ?>
 <!DOCTYPE html>
 <html lang='es'>

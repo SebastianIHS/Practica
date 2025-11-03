@@ -1,20 +1,12 @@
-<?php
-// Archivo para crear las tablas necesarias para los pedidos
+﻿<?php
 
-// Incluir archivo de conexión a la base de datos
 require_once 'db_connect.php';
 
-// Leer el contenido del archivo SQL
 $sql_file = file_get_contents('setup_all_tables.sql');
-
-// Separar las consultas
 $queries = explode(';', $sql_file);
-
-// Variable para rastrear si todas las consultas se ejecutaron con éxito
 $all_success = true;
 $error_message = '';
 
-// Ejecutar cada consulta
 foreach ($queries as $query) {
     $query = trim($query);
     if (!empty($query)) {
@@ -25,7 +17,6 @@ foreach ($queries as $query) {
     }
 }
 
-// Verificar si las tablas se crearon correctamente
 $check_usuario = mysqli_query($conn, "SHOW TABLES LIKE 'usuario'");
 $check_productos = mysqli_query($conn, "SHOW TABLES LIKE 'productos'");
 $check_pedidos = mysqli_query($conn, "SHOW TABLES LIKE 'pedidos'");
@@ -36,7 +27,6 @@ $productos_exists = mysqli_num_rows($check_productos) > 0;
 $pedidos_exists = mysqli_num_rows($check_pedidos) > 0;
 $detalles_exists = mysqli_num_rows($check_detalles) > 0;
 
-// Mostrar resultado
 echo "<!DOCTYPE html>
 <html lang='es'>
 <head>

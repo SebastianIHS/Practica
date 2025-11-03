@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function openPanel() {
         panel.classList.remove('d-none');
         panel.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('account-open');
         document.addEventListener('click', onDocClick);
         document.addEventListener('keydown', onKeyDown);
     }
     function closePanel() {
         panel.classList.add('d-none');
         panel.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('account-open');
         document.removeEventListener('click', onDocClick);
         document.removeEventListener('keydown', onKeyDown);
     }
@@ -22,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (btn && panel) btn.addEventListener('click', (e) => { e.stopPropagation(); togglePanel(); });
     if (btnCerrar) btnCerrar.addEventListener('click', () => { alert('Cerrar sesión (implementar)'); closePanel(); });
 
-    // Ver pagos: abre acordeón y hace scroll
     const btnVerPagos = document.getElementById('btnVerPagos');
     const collapseEl = document.getElementById('collapsePagos');
     if (btnVerPagos && collapseEl) {

@@ -1,10 +1,7 @@
 <?php
-// Si alguien abre directamente la vista sin pasar por el controlador,
-// redirigimos al controlador para que inicialice sesión/variables.
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
-// Si no existen las variables que la vista necesita, redirigimos
 if (!isset($isAdmin) || !isset($user)) {
     header('Location: InicioAdmin.php');
     exit;
@@ -32,57 +29,63 @@ if (!isset($isAdmin) || !isset($user)) {
                 <button id="btnCuenta" class="btn btn-account" type="button" aria-haspopup="true" aria-expanded="false">
                     Mi cuenta
                 </button>
-                <div id="accountPanel" class="account-panel d-none" role="dialog" aria-hidden="true">
-                    <div class="account-card">
-                        <a href="perfil.php" title="Haz clic para cambiar tu avatar" style="position: relative; display: inline-block; cursor: pointer;">
-                            <img src="<?= htmlspecialchars($user['avatar'] ?? 'https://via.placeholder.com/150') ?>" alt="avatar" class="avatar">
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); border-radius: 50%; opacity: 0; transition: all 0.3s; display: flex; justify-content: center; align-items: center;">
-                                <i class="bi bi-camera-fill text-white" style="font-size: 1.5rem;"></i>
-                            </div>
-                            <style>
-                                a:hover .avatar + div {
-                                    opacity: 1;
-                                }
-                                a:hover .avatar {
-                                    filter: blur(1px);
-                                }
-                            </style>
-                        </a>
-                        <div class="account-info">
-                            <h6 class="mb-0"><?= htmlspecialchars($user['nombre'] ?? 'Usuario') ?></h6>
-                            <small class="d-block text-muted"><?= htmlspecialchars($user['email'] ?? '') ?></small>
-                            <small class="d-block text-muted">RUT: <?= htmlspecialchars($user['rut'] ?? '') ?></small>
-                        </div>
-                    </div>
-
-                    <hr style="border-color: var(--brand); opacity: 0.2;">
-                    <ul class="account-meta list-unstyled mb-0">
-                        <div>
-                            <strong style="color: var(--brand);">Rol:</strong> <?= htmlspecialchars($user['rol']) ?>
-                        </div>
-                        <li><strong style="color: var(--brand);">Teléfono:</strong> <?= htmlspecialchars($user['telefono'] ?? '+56 9 0000 0000') ?></li>
-                    </ul>
-                    <hr style="border-color: var(--brand); opacity: 0.2;">
-
-                    <div class="account-actions d-flex gap-2">
-                        <a href="perfil.php" class="btn btn-sm btn-danger flex-grow-1">Ver perfil</a>
-                        <a href="cerrar_sesion.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Panel de cuenta fuera del navbar, antes del contenido principal -->
+    <div class="account-panel-container" style="width:100%;display:flex;justify-content:center;position:relative;z-index:99999;">
+        <div id="accountPanel" class="account-panel d-none" role="dialog" aria-hidden="true">
+            <div class="account-card">
+                <a href="perfil.php" title="Haz clic para cambiar tu avatar" style="position: relative; display: inline-block; cursor: pointer;">
+                    <img src="<?= htmlspecialchars($user['avatar'] ?? 'https://via.placeholder.com/150') ?>" alt="avatar" class="avatar">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); border-radius: 50%; opacity: 0; transition: all 0.3s; display: flex; justify-content: center; align-items: center;">
+                        <i class="bi bi-camera-fill text-white" style="font-size: 1.5rem;"></i>
+                    </div>
+                    <style>
+                        a:hover .avatar + div {
+                            opacity: 1;
+                        }
+                        a:hover .avatar {
+                            filter: blur(1px);
+                        }
+                    </style>
+                </a>
+                <div class="account-info">
+                    <h6 class="mb-0"><?= htmlspecialchars($user['nombre'] ?? 'Usuario') ?></h6>
+                    <small class="d-block text-muted"><?= htmlspecialchars($user['email'] ?? '') ?></small>
+                    <small class="d-block text-muted">RUT: <?= htmlspecialchars($user['rut'] ?? '') ?></small>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--brand); opacity: 0.2;">
+            <ul class="account-meta list-unstyled mb-0">
+                <?php if (isset($isAdmin) && $isAdmin): ?>
+                <div>
+                    <strong style="color: var(--brand);">Rol:</strong> <?= htmlspecialchars($user['rol']) ?>
+                </div>
+                <?php endif; ?>
+                <li><strong style="color: var(--brand);">Teléfono:</strong> <?= htmlspecialchars($user['telefono'] ?? '+56 9 0000 0000') ?></li>
+            </ul>
+            <hr style="border-color: var(--brand); opacity: 0.2;">
+
+            <div class="account-actions d-flex gap-2">
+                <a href="perfil.php" class="btn btn-sm btn-danger flex-grow-1">Ver perfil</a>
+                <a href="cerrar_sesion.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
 
     <main class="container-fluid">
         <div class="main-content">
             <div class="panel productos-panel mx-auto" style="max-width:1100px;">
                 <h2 class="text-start"><?= $isAdmin ? 'Portal de Administrador - Servicio de Gas' : 'Portal de Cliente - Servicio de Gas' ?></h2>
-                <div class="d-flex justify-content-center my-4">    
+                <div class="main-actions d-flex justify-content-center my-4">    
                     <a href="../Productos/Productos.view.php" class="btn btn-lg btn-primary action-link">
                         <i class="bi bi-box-seam me-2"></i> Comprar Vales de Gas
                     </a>
                 </div>
-                <div class="d-flex justify-content-center my-4">
+                <div class="main-actions d-flex justify-content-center my-4">
                     <a href="../Pagos/Pagos.view.php" class="btn btn-lg btn-primary action-link">
                         <i class="bi bi-cash-coin me-2"></i> Subir comprobante de pago
                     </a>
@@ -117,7 +120,7 @@ if (!isset($isAdmin) || !isset($user)) {
                     <?php endif; ?>
                 <?php endif; ?>
                 
-                <div class="d-flex justify-content-center my-4">
+                <div class="main-actions d-flex justify-content-center my-4">
                     <a href="../Pedidos/Pedidos.view.php" class="btn btn-lg btn-primary action-link">
                         <i class="bi bi-clipboard-data me-2"></i> Historial de Pedidos
                     </a>

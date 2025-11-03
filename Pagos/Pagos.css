@@ -22,7 +22,7 @@ body {
     font-weight: 700;
 }
 
-.panel.pagos-panel {
+.panel {
     background: var(--panel);
     border-radius: 14px;
     padding: 28px;
@@ -41,7 +41,7 @@ body {
 }
 
 .table thead th {
-   color: #0f0909ff;
+    color: #0f0909ff;
     font-weight: bold;
     border: none;
     text-align: center;
@@ -96,7 +96,6 @@ body {
     transition: opacity 0.3s;
 }
 
-/* Estilos para modales - copiados exactamente de Productos.css */
 .modal-content {
     border-radius: 16px;
     background: #34495e;
@@ -142,7 +141,6 @@ body {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-/* Estilo más delgado para botones de ver comprobante */
 .ver-comprobante-btn {
     padding: 0.18rem 0.4rem !important;
     font-size: 0.78rem !important;

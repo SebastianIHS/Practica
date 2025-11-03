@@ -237,3 +237,133 @@ Sesión: {"usuario_id":"2","usuario_rol":"usuario","REQUEST_METHOD":"POST","HTTP
 Datos: {"producto_id":"111025","cantidad":1}
 Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":398,"function":"logError"}]
 ------------------------------
+2025-10-28 16:21:07 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"2"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":142,"function":"logError"}]
+------------------------------
+2025-10-28 16:21:07 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 2"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":161,"function":"logError"}]
+------------------------------
+2025-10-28 16:21:07 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"2"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":178,"function":"logError"}]
+------------------------------
+2025-10-28 16:21:07 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"51025","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":242,"function":"logError"}]
+------------------------------
+2025-10-29 13:08:42 - Stock restaurado (automatico)
+Sesión: {"usuario_id":"2","usuario_rol":"usuario","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"51025","cantidad":1}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":398,"function":"logError"}]
+------------------------------
+2025-11-03 13:43:00 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"11"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":120,"function":"logError"}]
+------------------------------
+2025-11-03 13:43:00 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 11"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":139,"function":"logError"}]
+------------------------------
+2025-11-03 13:43:00 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"11"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":156,"function":"logError"}]
+------------------------------
+2025-11-03 13:43:00 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"51025","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":220,"function":"logError"}]
+------------------------------
+2025-11-03 14:16:51 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"12"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":120,"function":"logError"}]
+------------------------------
+2025-11-03 14:16:51 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 12"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":139,"function":"logError"}]
+------------------------------
+2025-11-03 14:16:51 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"12"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":156,"function":"logError"}]
+------------------------------
+2025-11-03 14:16:51 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"51125","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":220,"function":"logError"}]
+------------------------------
+2025-11-03 14:21:08 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"13"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":120,"function":"logError"}]
+------------------------------
+2025-11-03 14:21:08 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 13"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":139,"function":"logError"}]
+------------------------------
+2025-11-03 14:21:08 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"13"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":156,"function":"logError"}]
+------------------------------
+2025-11-03 14:21:08 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"51125","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":220,"function":"logError"}]
+------------------------------
+2025-11-03 14:26:01 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"14"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":120,"function":"logError"}]
+------------------------------
+2025-11-03 14:26:01 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 14"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":139,"function":"logError"}]
+------------------------------
+2025-11-03 14:26:01 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"14"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":156,"function":"logError"}]
+------------------------------
+2025-11-03 14:26:01 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"111125","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":221,"function":"logError"}]
+------------------------------
+2025-11-03 14:29:50 - Iniciando eliminación de pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"action":"eliminarPago","pago_id":"15"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":120,"function":"logError"}]
+------------------------------
+2025-11-03 14:29:50 - Ejecutando consulta
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"sql":"SELECT pedido_id, comprobante_data FROM pagos WHERE id = 15"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":139,"function":"logError"}]
+------------------------------
+2025-11-03 14:29:50 - Información del pago
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"pedido_id":"15"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":156,"function":"logError"}]
+------------------------------
+2025-11-03 14:29:50 - Stock restaurado correctamente
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"051125","cantidad":"1"}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":221,"function":"logError"}]
+------------------------------
+2025-11-03 14:30:58 - Stock restaurado (automatico)
+Sesión: {"usuario_id":"1","usuario_rol":"admin","REQUEST_METHOD":"POST","HTTP_USER_AGENT":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36 OPR\/122.0.0.0"}
+Datos: {"producto_id":"051125","cantidad":1}
+Traza: [{"file":"C:\\Users\\moons\\OneDrive\\Escritorio\\Practica\\Practica\\Pagos\\procesar_pagos.php","line":383,"function":"logError"}]
+------------------------------

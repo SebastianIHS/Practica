@@ -1,6 +1,6 @@
-/* Archivo CSS adicional para arreglar problemas específicos */
-
-/* Asegurar que el panel de cuenta tenga máxima prioridad de visualización */
 .account-panel {
     z-index: 9999 !important;
+}
+ .account-panel {
+     z-index: 9999 !important;
 }

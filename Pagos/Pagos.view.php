@@ -1,5 +1,5 @@
     <?php
-    // Verificar sesión
+    
     require_once '../config/verificar_sesion.php';
     
     $tipo = $_SESSION['usuario_rol'] ?? 'usuario';

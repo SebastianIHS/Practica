@@ -1,43 +1,31 @@
 <?php
-// Verificar sesión
 require_once '../config/verificar_sesion.php';
-
-// Incluir archivo de conexión a la base de datos
 require_once '../config/db_connect.php';
-
-// Incluir archivo para registro de errores
 require_once 'log_errors.php';
 
-// Función para sanitizar los inputs
 function sanitizar($conn, $input) {
     return mysqli_real_escape_string($conn, trim($input));
 }
 
-// Directorio para guardar comprobantes
 $uploadDir = '../Image/comprobantes/';
 
-// Verificar si el directorio existe, si no, crearlo
 if (!file_exists($uploadDir)) {
     mkdir($uploadDir, 0777, true);
 }
 
-// Verificar si es una solicitud POST para subir comprobante
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'subirComprobante') {
-    // Verificar que el usuario esté autenticado
     if (!isset($_SESSION['usuario_id'])) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Usuario no autenticado']);
         exit();
     }
     
-    // Verificar que se recibió un archivo
     if (!isset($_FILES['comprobante']) || $_FILES['comprobante']['error'] !== UPLOAD_ERR_OK) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Error al recibir el archivo']);
         exit();
     }
     
-    // Verificar que se recibió un ID de pago
     if (!isset($_POST['pago_id']) || empty($_POST['pago_id'])) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'ID de pago no proporcionado']);
@@ -47,12 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $pago_id = (int)$_POST['pago_id'];
     $usuario_id = $_SESSION['usuario_id'];
     
-    // Verificar que el pago exista y pertenezca al usuario
     $sql_check = "SELECT p.id FROM pagos p 
                  JOIN pedidos pe ON p.pedido_id = pe.id 
                  WHERE p.id = $pago_id AND pe.usuario_id = $usuario_id";
     
-    // Si es admin, no verificamos el usuario
     if ($_SESSION['usuario_rol'] === 'admin') {
         $sql_check = "SELECT id FROM pagos WHERE id = $pago_id";
     }
@@ -65,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit();
     }
     
-    // Procesar el archivo
     $file = $_FILES['comprobante'];
     $fileName = $file['name'];
     $fileTmpPath = $file['tmp_name'];
@@ -73,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $fileError = $file['error'];
     $fileType = $file['type'];
     
-    // Verificar el tipo de archivo
     $allowedTypes = ['image/jpeg', 'image/png'];
     if (!in_array($fileType, $allowedTypes)) {
         header('Content-Type: application/json');
@@ -81,23 +65,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit();
     }
     
-    // Verificar el tamaño del archivo (5MB máximo)
     if ($fileSize > 5 * 1024 * 1024) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'El archivo es demasiado grande (máximo 5MB)']);
         exit();
     }
     
-    // Leer el archivo en una variable
     $imageData = file_get_contents($fileTmpPath);
     
-    // Escapar los datos binarios para la consulta SQL
     $imageData = mysqli_real_escape_string($conn, $imageData);
     
-    // Verificar si el usuario es admin
     $isAdmin = ($_SESSION['usuario_rol'] ?? '') === 'admin';
-    
-    // Actualizar la base de datos con la imagen como BLOB
     $sql_update = "UPDATE pagos SET 
                    comprobante_data = '$imageData', 
                    comprobante_tipo = '$fileType',
@@ -223,11 +201,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['action'])) {
                 
                 // Restaurar el stock de cada producto
                 foreach ($productos_a_restaurar as $producto) {
-                    // Verificar que el producto exista
                     $producto_id = $producto['id'];
                     $cantidad = $producto['cantidad'];
                     
-                    // Actualizar el stock sumando la cantidad
+                    if (strlen($producto_id) == 5 && is_numeric($producto_id)) {
+                        $producto_id = str_pad($producto_id, 6, '0', STR_PAD_LEFT);
+                    }
+                    
                     $sql_stock = "UPDATE productos SET stock = stock + $cantidad WHERE id = '$producto_id'";
                     $result_stock = mysqli_query($conn, $sql_stock);
                     
@@ -237,7 +217,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['action'])) {
                             'cantidad' => $cantidad,
                             'error' => mysqli_error($conn)
                         ]);
-                        // No marcamos error = true para no cancelar toda la transacción si un producto no existe
                     } else {
                         logError("Stock restaurado correctamente", [
                             'producto_id' => $producto_id,
@@ -388,6 +367,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['action'])) {
                 foreach ($productos_a_restaurar as $producto) {
                     $producto_id = $producto['id'];
                     $cantidad = (int)$producto['cantidad'];
+                    
+                    // Normalizar ID si tiene 5 dígitos (agregar 0 al inicio)
+                    if (strlen($producto_id) == 5 && is_numeric($producto_id)) {
+                        $producto_id = str_pad($producto_id, 6, '0', STR_PAD_LEFT);
+                    }
+                    
                     $sql_stock = "UPDATE productos SET stock = stock + $cantidad WHERE id = '$producto_id'";
                     $result_stock = mysqli_query($conn, $sql_stock);
                     if (!$result_stock) {

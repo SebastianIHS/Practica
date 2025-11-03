@@ -1,30 +1,20 @@
 <?php
-// Incluir archivo de verificación de sesión
-require_once '../config/verificar_sesion.php';
 
-// Incluir archivo de conexión
+require_once '../config/verificar_sesion.php';
 require_once '../config/db_connect.php';
 
 $tipo = $_SESSION['usuario_rol'] ?? 'usuario';
 $isAdmin = ($tipo === 'admin');
 
-/**
- * Genera un avatar con las iniciales del usuario
- * @param string $nombre Nombre completo del usuario
- * @return string URL del avatar con iniciales o ruta de la imagen
- */
 function generarAvatarIniciales($nombre, $apellido) {
-    // Obtener la primera letra del nombre y apellido
     $iniciales = strtoupper(substr($nombre, 0, 1) . substr($apellido, 0, 1));
     
-    // Generar un color único basado en el nombre para el fondo
     $hash = md5($nombre . $apellido);
-    $r = hexdec(substr($hash, 0, 2)) % 150 + 50; // Limitar entre 50-200 para asegurar contraste
+    $r = hexdec(substr($hash, 0, 2)) % 150 + 50;
     $g = hexdec(substr($hash, 2, 2)) % 150 + 50;
     $b = hexdec(substr($hash, 4, 2)) % 150 + 50;
     $colorFondo = "rgb($r, $g, $b)";
     
-    // Método completamente diferente para el SVG que garantiza centrado absoluto
     $svg = '<?xml version="1.0" encoding="UTF-8"?>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="150" height="150">
         <circle cx="50" cy="50" r="50" fill="' . $colorFondo . '"/>
@@ -33,14 +23,11 @@ function generarAvatarIniciales($nombre, $apellido) {
         '</text>
     </svg>';
     
-    // Convertir SVG a data URL para usar directamente en el atributo src de img
     return 'data:image/svg+xml;base64,' . base64_encode($svg);
 }
 
-// Obtener datos del usuario de la base de datos
 $usuario_id = $_SESSION['usuario_id'];
 
-// LIMPIEZA AUTOMÁTICA: Eliminar pagos/pedidos expirados
 $ahora = time();
 $sql_expirados = "SELECT p.id as pago_id, p.pedido_id 
                   FROM pagos p
@@ -58,18 +45,22 @@ if ($result_expirados && mysqli_num_rows($result_expirados) > 0) {
         mysqli_autocommit($conn, FALSE);
         $error = false;
         
-        // Obtener detalles para restaurar stock
         $sql_detalles = "SELECT producto_id, cantidad FROM detalle_pedido WHERE pedido_id = $pedido_id";
         $res_det = mysqli_query($conn, $sql_detalles);
         if ($res_det && mysqli_num_rows($res_det) > 0) {
             while ($d = mysqli_fetch_assoc($res_det)) {
                 $pid = mysqli_real_escape_string($conn, $d['producto_id']);
                 $cant = (int)$d['cantidad'];
+                
+                // Normalizar ID si tiene 5 dígitos (agregar 0 al inicio)
+                if (strlen($pid) == 5 && is_numeric($pid)) {
+                    $pid = str_pad($pid, 6, '0', STR_PAD_LEFT);
+                }
+                
                 mysqli_query($conn, "UPDATE productos SET stock = stock + $cant WHERE id = '$pid'");
             }
         }
         
-        // Eliminar pago, detalles y pedido
         if (!mysqli_query($conn, "DELETE FROM pagos WHERE id = $pago_id")) $error = true;
         if (!$error && !mysqli_query($conn, "DELETE FROM detalle_pedido WHERE pedido_id = $pedido_id")) $error = true;
         if (!$error && !mysqli_query($conn, "DELETE FROM pedidos WHERE id = $pedido_id")) $error = true;
@@ -89,15 +80,12 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) == 1) {
     $usuario = mysqli_fetch_assoc($result);
     
-    // Si no hay avatar, generar uno con iniciales  
     $tiene_avatar = !empty($usuario['avatar']);
     if ($tiene_avatar) {
         $avatarUrl = "mostrar_avatar.php?id=" . $usuario_id . "&t=" . time();
     } else {
         $avatarUrl = generarAvatarIniciales($usuario['nombre'], $usuario['apellido']);
     }
-    
-    // Verificar si hay pagos pendientes con comprobantes (para mostrar notificación)
     // Inicializar variables para evitar warnings
     $comprobantes_pendientes = 0;
     $comprobante_faltante = false;

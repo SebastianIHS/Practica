@@ -1,15 +1,11 @@
 <?php
-// Verificar sesión
 require_once '../config/verificar_sesion.php';
-
-// Incluir archivo de conexión a la base de datos
 require_once '../config/db_connect.php';
 
 $tipo = $_SESSION['usuario_rol'] ?? 'usuario';
 $isAdmin = ($tipo === 'admin');
 $usuario_id = $_SESSION['usuario_id'] ?? 0;
 
-// Verificar si las tablas necesarias existen
 $usuario_exists = false;
 $productos_exists = false;
 $pedidos_exists = false;
@@ -19,29 +15,25 @@ $check_usuario = mysqli_query($conn, "SHOW TABLES LIKE 'usuario'");
 if ($check_usuario && mysqli_num_rows($check_usuario) > 0) {
     $usuario_exists = true;
 }
-
 $check_productos = mysqli_query($conn, "SHOW TABLES LIKE 'productos'");
 if ($check_productos && mysqli_num_rows($check_productos) > 0) {
     $productos_exists = true;
 }
-
 $check_pedidos = mysqli_query($conn, "SHOW TABLES LIKE 'pedidos'");
 if ($check_pedidos && mysqli_num_rows($check_pedidos) > 0) {
     $pedidos_exists = true;
 }
-
 $check_detalle = mysqli_query($conn, "SHOW TABLES LIKE 'detalle_pedido'");
 if ($check_detalle && mysqli_num_rows($check_detalle) > 0) {
     $detalle_exists = true;
 }
-
 $table_exists = $usuario_exists && $productos_exists && $pedidos_exists && $detalle_exists;
 
 $result = false;
 $pedidos = [];
 
 if ($table_exists) {
-    // LIMPIEZA AUTOMÁTICA: Eliminar pagos/pedidos expirados antes de mostrar el historial
+    
     $ahora = time();
     $sql_expirados = "SELECT p.id as pago_id, p.pedido_id 
                       FROM pagos p
@@ -49,28 +41,32 @@ if ($table_exists) {
                       AND p.comprobante_data IS NULL
                       AND p.tiempo_limite > 0
                       AND p.tiempo_limite < $ahora";
-    
     $result_expirados = mysqli_query($conn, $sql_expirados);
     if ($result_expirados && mysqli_num_rows($result_expirados) > 0) {
         while ($expirado = mysqli_fetch_assoc($result_expirados)) {
             $pago_id = (int)$expirado['pago_id'];
             $pedido_id = (int)$expirado['pedido_id'];
-            
             mysqli_autocommit($conn, FALSE);
             $error = false;
             
-            // Obtener detalles para restaurar stock
+            
             $sql_detalles = "SELECT producto_id, cantidad FROM detalle_pedido WHERE pedido_id = $pedido_id";
             $res_det = mysqli_query($conn, $sql_detalles);
             if ($res_det && mysqli_num_rows($res_det) > 0) {
                 while ($d = mysqli_fetch_assoc($res_det)) {
                     $pid = mysqli_real_escape_string($conn, $d['producto_id']);
                     $cant = (int)$d['cantidad'];
+                    
+                    // Normalizar ID si tiene 5 dígitos (agregar 0 al inicio)
+                    if (strlen($pid) == 5 && is_numeric($pid)) {
+                        $pid = str_pad($pid, 6, '0', STR_PAD_LEFT);
+                    }
+                    
                     mysqli_query($conn, "UPDATE productos SET stock = stock + $cant WHERE id = '$pid'");
                 }
             }
             
-            // Eliminar pago, detalles y pedido
+            
             if (!mysqli_query($conn, "DELETE FROM pagos WHERE id = $pago_id")) $error = true;
             if (!$error && !mysqli_query($conn, "DELETE FROM detalle_pedido WHERE pedido_id = $pedido_id")) $error = true;
             if (!$error && !mysqli_query($conn, "DELETE FROM pedidos WHERE id = $pedido_id")) $error = true;
@@ -85,15 +81,16 @@ if ($table_exists) {
     }
     
     try {
-        // Verificar si existe la tabla de pagos
+        
         $pagos_exists = false;
         $check_pagos = mysqli_query($conn, "SHOW TABLES LIKE 'pagos'");
         if ($check_pagos && mysqli_num_rows($check_pagos) > 0) {
             $pagos_exists = true;
         }
         
-        // Obtener pedidos según el rol (admin ve todos, usuario solo los suyos)
-        // Y solo mostrar los que tienen pagos aprobados
+        $mes_filtro = isset($_GET['mes']) ? (int)$_GET['mes'] : date('n');
+        $anio_filtro = isset($_GET['anio']) ? (int)$_GET['anio'] : date('Y');
+        
         if ($isAdmin) {
             if ($pagos_exists) {
                 $sql = "SELECT p.id, p.fecha_pedido, p.total, p.estado, 
@@ -105,6 +102,8 @@ if ($table_exists) {
                         JOIN usuario u ON p.usuario_id = u.id_usuario
                         JOIN pagos pa ON p.id = pa.pedido_id
                         WHERE pa.estado = 'aprobado'
+                        AND MONTH(p.fecha_pedido) = $mes_filtro
+                        AND YEAR(p.fecha_pedido) = $anio_filtro
                         ORDER BY p.fecha_pedido DESC";
             } else {
                 // Si no existe la tabla pagos, mostrar todos los pedidos (retrocompatibilidad)
@@ -113,6 +112,8 @@ if ($table_exists) {
                         u.id_usuario AS usuario_id
                         FROM pedidos p
                         JOIN usuario u ON p.usuario_id = u.id_usuario
+                        WHERE MONTH(p.fecha_pedido) = $mes_filtro
+                        AND YEAR(p.fecha_pedido) = $anio_filtro
                         ORDER BY p.fecha_pedido DESC";
             }
         } else {
@@ -126,6 +127,8 @@ if ($table_exists) {
                         JOIN usuario u ON p.usuario_id = u.id_usuario
                         JOIN pagos pa ON p.id = pa.pedido_id
                         WHERE p.usuario_id = $usuario_id AND pa.estado = 'aprobado'
+                        AND MONTH(p.fecha_pedido) = $mes_filtro
+                        AND YEAR(p.fecha_pedido) = $anio_filtro
                         ORDER BY p.fecha_pedido DESC";
             } else {
                 // Si no existe la tabla pagos, mostrar pedidos del usuario (retrocompatibilidad)
@@ -135,6 +138,8 @@ if ($table_exists) {
                         FROM pedidos p
                         JOIN usuario u ON p.usuario_id = u.id_usuario
                         WHERE p.usuario_id = $usuario_id
+                        AND MONTH(p.fecha_pedido) = $mes_filtro
+                        AND YEAR(p.fecha_pedido) = $anio_filtro
                         ORDER BY p.fecha_pedido DESC";
             }
         }

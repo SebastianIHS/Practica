@@ -1,21 +1,21 @@
-// Función para mostrar mensajes toast
-function showToast(message, type = 'info') {
+ 
+    function showToast(message, type = 'info') {
     const toastContainer = document.querySelector('.toast-container');
     if (!toastContainer) {
-        // Si no hay contenedor de toasts, lo creamos
+        
         const container = document.createElement('div');
         container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
         document.body.appendChild(container);
     }
     
-    // Crear el elemento toast
+    
     const toastEl = document.createElement('div');
     toastEl.className = `toast align-items-center text-white bg-${type === 'error' ? 'danger' : (type === 'success' ? 'success' : 'primary')} border-0`;
     toastEl.setAttribute('role', 'alert');
     toastEl.setAttribute('aria-live', 'assertive');
     toastEl.setAttribute('aria-atomic', 'true');
     
-    // Contenido del toast
+    
     toastEl.innerHTML = `
         <div class="d-flex">
             <div class="toast-body">
@@ -25,149 +25,139 @@ function showToast(message, type = 'info') {
         </div>
     `;
     
-    // Añadir al contenedor
+    
     document.querySelector('.toast-container').appendChild(toastEl);
     
-    // Inicializar y mostrar el toast
+    
     const toast = new bootstrap.Toast(toastEl, {
         autohide: true,
         delay: 5000
     });
     toast.show();
     
-    // Eliminar el toast del DOM después de ocultarse
+    
     toastEl.addEventListener('hidden.bs.toast', function () {
         toastEl.remove();
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Crear contenedor de toasts si no existe
+    
     if (!document.querySelector('.toast-container')) {
         const container = document.createElement('div');
         container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
         document.body.appendChild(container);
     }
     
-    // Variables para mantener referencias entre modales
+    
     let currentFileInput = null;
     let currentFile = null;
     let currentRow = null;
     
-    // Modal de subir comprobante
+    
     const subirModal = new bootstrap.Modal(document.getElementById('subirComprobanteModal'));
-    // Modal de eliminar pago
+    
     const eliminarModal = new bootstrap.Modal(document.getElementById('eliminarPagoModal'));
     
-    // Manejar clic en botón de subir comprobante
+    
     document.querySelectorAll('.subir-comprobante').forEach(button => {
         button.addEventListener('click', function() {
-            // Encontrar el input de archivo asociado
+            
             const fileInput = this.parentElement.querySelector('.file-input');
             fileInput.click();
         });
     });
 
-    // Manejar cambio en inputs de archivo
+    
     document.querySelectorAll('.file-input').forEach(input => {
         input.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const file = this.files[0];
                 const row = this.closest('tr');
                 
-                // Verificar que sea una imagen jpg o png
+                
                 if (!file.type.match('image/jpeg|image/png')) {
-                    alert('Solo se permiten archivos JPG o PNG');
                     return;
                 }
                 
-                // Guardar referencias para usar en el modal
                 currentFileInput = this;
                 currentFile = file;
                 currentRow = row;
                 
-                // Mostrar el modal de confirmación
                 document.getElementById('nombreArchivo').textContent = file.name;
                 subirModal.show();
             }
         });
     });
     
-    // Confirmar subida de archivo
     document.getElementById('confirmarSubida').addEventListener('click', function() {
         if (currentFile && currentRow) {
-            // Ocultar el modal
+            
             subirModal.hide();
             
-            // Obtener el ID del pago
             const pagoId = currentRow.dataset.pagoId;
             
-            // Crear FormData para enviar el archivo
             const formData = new FormData();
             formData.append('comprobante', currentFile);
             formData.append('pago_id', pagoId);
             formData.append('action', 'subirComprobante');
             
-            // Mostrar spinner o indicador de carga
             const loadingIndicator = document.createElement('div');
             loadingIndicator.className = 'spinner-border spinner-border-sm text-primary mx-2';
             loadingIndicator.setAttribute('role', 'status');
             currentRow.querySelector('.subir-comprobante').appendChild(loadingIndicator);
             
-            // Enviar el archivo al servidor
             fetch('procesar_pagos.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                // Quitar el indicador de carga
                 loadingIndicator.remove();
                 
                 if (data.success) {
-                    // Actualizar la celda de comprobante
                     const comprobanteTd = currentRow.querySelector('.comprobante-cell');
-                    comprobanteTd.innerHTML = `<button type="button" class="btn btn-sm btn-info mb-1 ver-comprobante" data-imagen="ver_comprobante.php?id=${pagoId}_${Date.now()}">Ver comprobante</button>`;
-                    
-                    // Actualizar el estado
+                    comprobanteTd.innerHTML = `<div class="text-center">
+                        <button class="btn btn-sm btn-info mb-1 ver-comprobante" data-imagen="ver_comprobante.php?id=${pagoId}_${Date.now()}">
+                            <i class="bi bi-image me-1"></i> Ver comprobante
+                        </button>
+                    </div>`;
+
                     const estadoTd = currentRow.querySelector('.estado-pago');
-                    estadoTd.innerHTML = `<span class="text-warning">Por confirmar</span>`;
-                    
-                    // Actualizar la celda de tiempo restante - eliminar el temporizador
+                    if (estadoTd.querySelector('select')) {
+                        estadoTd.innerHTML = `<select class="form-select form-select-sm estado-pago-select" data-pago-id="${pagoId}" onchange="cambiarEstadoPago(this)">
+                            <option value="pendiente" selected>Por confirmar</option>
+                            <option value="aprobado">Confirmado</option>
+                            <option value="rechazado">Rechazado</option>
+                        </select>`;
+                    } else {
+                        estadoTd.innerHTML = `<span class="text-warning">Por confirmar</span>`;
+                    }
+
                     const tiempoTd = currentRow.querySelector('.tiempo-restante');
                     if (tiempoTd) {
                         tiempoTd.innerHTML = '<span class="badge bg-secondary">N/A</span>';
-                        
-                        // Actualizar los atributos de datos de la fila para detener el temporizador
                         currentRow.removeAttribute('data-tiempo-limite');
-                        
-                        // Intentar detener cualquier temporizador asociado (para JS)
                         if (window.temporizadores && window.temporizadores[pagoId]) {
                             clearInterval(window.temporizadores[pagoId]);
                             delete window.temporizadores[pagoId];
                         }
                     }
                     
-                    // Reiniciar el input de archivo
                     currentFileInput.value = '';
                     
-                    // Mostrar mensaje de éxito
                     showToast('¡Comprobante subido con éxito! El pago está pendiente de aprobación.', 'success');
                     
-                    // Actualizar event listeners para el nuevo elemento
                     setupVerComprobanteListeners();
                 } else {
-                    // Mostrar mensaje de error
                     showToast('Error: ' + data.message, 'error');
                 }
                 
-                // Limpiar referencias
                 currentFileInput = null;
                 currentFile = null;
                 currentRow = null;
             })
             .catch(error => {
-                // Quitar el indicador de carga
                 loadingIndicator.remove();
                 console.error('Error:', error);
                 showToast('Error al subir el comprobante. Por favor, intenta de nuevo.', 'error');
@@ -176,12 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
     
-    // Configurar listeners para ver comprobantes
     function setupVerComprobanteListeners() {
-        // Soportar dos patrones:
-        // 1) .ver-comprobante-btn con data-img (base64) + data-tipo (igual que historial)
-        // 2) .ver-comprobante con data-imagen (URL) — compatibilidad previa
-
         document.querySelectorAll('.ver-comprobante-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const imgData = btn.getAttribute('data-img');

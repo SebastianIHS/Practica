@@ -1,3 +1,21 @@
+.account-panel[aria-hidden="false"], .account-panel:not([aria-hidden]) {
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+
+
+.main-actions {
+    position: relative;
+    z-index: 10 !important;
+}
+
+.account-panel {
+    z-index: 99999 !important;
+}
+
+body.account-open .main-actions {
+    pointer-events: none !important;
+}
 :root {
     --brand: #e74c3c;
     --bg: #2c3e50;
@@ -5,7 +23,6 @@
     --muted: #6c757d;
 }
 
-/* Base */
 body {
     background: linear-gradient(180deg, #1a2530, #4a6783);
     color: #fff;
@@ -13,7 +30,6 @@ body {
     margin: 0;
     min-height: 100vh;
 }
-/* Navbar */
 .navbar {
     background: #c24336; /* Color rojo oscuro sólido */
     padding: .7rem 1rem;
@@ -154,17 +170,16 @@ body {
     position: relative;
 }
 
+
 .account-panel {
-    position: absolute;
-    top: calc(100% + 10px);
-    /* debajo del botón */
+    position: fixed;
+    top: 140px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2000;
+    z-index: 99999;
     min-width: 340px;
     max-width: 420px;
     background: #fff;
-    /* caja completa blanca */
     color: #2c3e50;
     border-radius: 12px;
     padding: 16px;

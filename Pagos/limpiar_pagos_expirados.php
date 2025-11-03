@@ -71,8 +71,14 @@ while ($row = mysqli_fetch_assoc($res)) {
     // Restaurar stock
     if (!$error && !empty($productos)) {
         foreach ($productos as $prod) {
-            $pid = (int)$prod['id'];
+            $pid = $prod['id']; // Mantener como string para preservar ceros iniciales
             $cant = (int)$prod['cantidad'];
+            
+            // Normalizar ID si tiene 5 dígitos (agregar 0 al inicio)
+            if (strlen($pid) == 5 && is_numeric($pid)) {
+                $pid = str_pad($pid, 6, '0', STR_PAD_LEFT);
+            }
+            
             $sql_stock = "UPDATE productos SET stock = stock + $cant WHERE id = '$pid'";
             if (!mysqli_query($conn, $sql_stock)) {
                 $err = 'Error al restaurar stock producto ' . $pid . ': ' . mysqli_error($conn);

@@ -73,6 +73,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar_perfil'])) 
     $nuevo_apellido = mysqli_real_escape_string($conn, $_POST['apellido']);
     $nuevo_correo = mysqli_real_escape_string($conn, $_POST['correo']);
     $nuevo_telefono = mysqli_real_escape_string($conn, $_POST['telefono']);
+    // Validar teléfono chileno si se ingresó
+    $telefono_error = null;
+    if ($nuevo_telefono !== null && $nuevo_telefono !== '') {
+        $telefono_limpio = preg_replace('/[^0-9]/', '', $nuevo_telefono);
+            if (!preg_match('/^9\\d{8}$/', $telefono_limpio)) {
+                $telefono_error = "Número inválido.";
+        } else {
+            $nuevo_telefono = $telefono_limpio;
+        }
+    }
     
     // Verificar si el correo ya existe para otro usuario
     $verificar_correo = "SELECT id_usuario FROM usuario WHERE correo = '$nuevo_correo' AND id_usuario != '$usuario_id'";
@@ -80,6 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar_perfil'])) 
     
     if (mysqli_num_rows($result_correo) > 0) {
         $mensaje = "El correo electrónico ya está en uso por otro usuario";
+        $tipo_mensaje = "danger";
+    } elseif ($telefono_error) {
+        $mensaje = $telefono_error;
         $tipo_mensaje = "danger";
     } else {
         // Actualizar datos
